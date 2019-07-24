@@ -3,48 +3,45 @@ pipeline {
     stages {
         stage('One') {
                 steps {
-                      echo 'Hi, this is my first pipeline in jenkins'
+                        echo 'Hi, this is Zulaikha from edureka'
+			
                 }
         }
-        stage('Two'){
+	    stage('Two'){
+		    
+		steps {
+			input('Do you want to proceed?')
+        }
+	    }
+        stage('Three') {
+                when {
+                        not {
+                                branch "master"
+                        }
+                }
                 steps {
-                    input('Do you want to proceed?')
-                }
+			echo "Hello"
+                        }
         }
-        stage('Three'){
-                steps{
-                      when {
-                            not {
-                                branch 'master'
-                            }
-                      }
-                      steps {
-                            echo 'Hello'
-                      }
-                }
-        }
-         stage('Four'){
+        stage('Four') {
                 parallel {
-                  stage('Unit-Test') {
-                          steps {
-                                echo 'Running the unit test...'
-                          }
-                  }
-                  stage('Integration test') {
-                  agent {
-                          docker {
-                                  reuseNode false
-                                  image 'ubuntu'
-                          }
-                  }
-                          steps {
-                                  echo 'Running Integration test...'
-                          }
-                  }
-                }
-         }
-         
-         
-       
+                        stage('Unit Test') {
+                                steps{
+                                        echo "Running the unit test..."
+                                }
+                        }
+                        stage('Integration test') {
+                        agent {
+                                docker {
+                                        reuseNode false
+					image 'ubuntu'
+                                        }
+			}
+				steps {
+					echo 'Running the integration test..'
+				}
+                               
+			}  }
+        }
     }
 }
