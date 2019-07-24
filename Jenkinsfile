@@ -1,43 +1,43 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('One'){
-                steps{
+    stages {
+        stage('One') {
+                steps {
                       echo 'Hi, this is my first pipeline in jenkins'
                 }
         }
         stage('Two'){
-                steps{
+                steps {
                     input('Do you want to proceed?')
                 }
         }
         stage('Three'){
                 steps{
-                      when{
-                            not{
+                      when {
+                            not {
                                 branch "master"
                             }
                       }
-                      steps{
+                      steps {
                             echo "Hello"
                       }
                 }
         }
          stage('Four'){
-                parallel{
-                  stage('Unit-Test'){
-                          steps{
-                                echo 'Running the unit test...'
+                parallel {
+                  stage('Unit-Test') {
+                          steps {
+                                echo 'Running the unit test..."
                           }
                   }
-                  stage('Integration test'){
-                  agent{
-                          docker{
+                  stage('Integration test') {
+                  agent {
+                          docker {
                                   reuseNode false
                                   image 'ubuntu'
                           }
                   }
-                          steps{
+                          steps {
                                   echo 'Running Integration test...'
                           }
                   }
