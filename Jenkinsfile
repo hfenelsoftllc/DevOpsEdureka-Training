@@ -15,11 +15,11 @@ pipeline {
                 steps{
                       when {
                             not {
-                                branch "master"
+                                branch 'master'
                             }
                       }
                       steps {
-                            echo "Hello"
+                            echo 'Hello'
                       }
                 }
         }
@@ -27,7 +27,7 @@ pipeline {
                 parallel {
                   stage('Unit-Test') {
                           steps {
-                                echo 'Running the unit test..."
+                                echo 'Running the unit test...'
                           }
                   }
                   stage('Integration test') {
